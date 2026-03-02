@@ -19,25 +19,25 @@ const GetInTouch = () => {
         </p>
         <div className="my-5 space-y-6">
           <div className="flex items-center gap-5">
-            <div className="flex items-center justify-center w-fit p-0.5 bg-purple-600 rounded-full">
+            <div className="flex items-center justify-center w-fit p-0.5 bg-[#4B22B5] rounded-full">
               <CheckIcon className="text-white inline-block" />
             </div>
             <p className="text-xl font-medium">3+ Years Of Experience</p>
           </div>
           <div className="flex items-center gap-5">
-            <div className="flex items-center justify-center w-fit p-0.5 bg-purple-600 rounded-full">
+            <div className="flex items-center justify-center w-fit p-0.5 bg-[#4B22B5] rounded-full">
               <CheckIcon className="text-white inline-block" />
             </div>
             <p className="text-xl font-medium">Front-End Development</p>
           </div>
           <div className="flex items-center gap-5">
-            <div className="flex items-center justify-center w-fit p-0.5 bg-purple-600 rounded-full">
+            <div className="flex items-center justify-center w-fit p-0.5 bg-[#4B22B5] rounded-full">
               <CheckIcon className="text-white inline-block" />
             </div>
             <p className="text-xl font-medium">Web App Development</p>
           </div>
           <div className="flex items-center gap-5">
-            <div className="flex items-center justify-center w-fit p-0.5 bg-purple-600 rounded-full">
+            <div className="flex items-center justify-center w-fit p-0.5 bg-[#4B22B5] rounded-full">
               <CheckIcon className="text-white inline-block" />
             </div>
             <p className="text-xl font-medium">Mobile App Development</p>
@@ -104,7 +104,7 @@ const GetInTouch = () => {
           </div>
         </label>
 
-        <button className="bg-purple-500 text-lg px-4 py-2 flex items-center rounded-xl w-fit">
+        <button className="bg-[#4B22B5] text-lg px-4 py-2 flex items-center rounded-xl w-fit">
           Send A Message
           <ChevronRight className="inline-block ml-2" />
         </button>

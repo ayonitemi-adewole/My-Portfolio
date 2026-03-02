@@ -18,13 +18,13 @@ const Contact = () => {
             <p className="text-lg text-neutral-300">Get In Touch</p>
             <p className="text-3xl md:text-5xl font font-medium text-white max-w-[80%] md:max-w-full leading-10 md:leading-16">
               Let's Talk About Your{' '}
-              <span className="text-purple-600">Next Project</span>
+              <span className="text-[#4B22B5]">Next Project</span>
             </p>
             <p className="text-lg text-neutral-300 max-w-[90%] md:leading-8">
               Feel free to reach out for collaborations or just a friendly
-                <span className="text-purple-600 font-extrabold">{'  <> '}</span>
+                <span className="text-[#4B22B5] font-extrabold">{'  <> '}</span>
                 HELLO!
-                <span className="text-purple-600 font-extrabold">{' </>'}</span>
+                <span className="text-[#4B22B5] font-extrabold">{' </>'}</span>
             </p>
           </div>
 

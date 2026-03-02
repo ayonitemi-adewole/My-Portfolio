@@ -8,6 +8,7 @@ import Projects from './pages/Projects';
 import { useEffect, useState } from 'react';
 import Background from './components/Background';
 import { InfinitySpin } from 'react-loader-spinner';
+import ScrollUpBtn from './components/ScrollUpBtn';
 
 const App = () => {
   const location = useLocation();
@@ -33,7 +34,7 @@ const App = () => {
         <InfinitySpin
           visible={true}
           width="200"
-          color="#ffffff"
+          color="#9810fa"
           ariaLabel="infinity-spin-loading"
         />
       </div>
@@ -55,6 +56,7 @@ const App = () => {
           {/* <Route path='*' element={<NotFound />} /> */}
         </Routes>
       </div>
+      <ScrollUpBtn />
     </div>
   );
 };

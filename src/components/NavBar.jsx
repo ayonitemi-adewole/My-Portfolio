@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Home, User, Briefcase, Mail } from 'lucide-react';
-import logo from '../assets/logo/logo.png';
+import logo from '../assets/logo/logo-2.png';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import AnimatedButton from './AnimatedButton';
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -54,8 +55,8 @@ const NavBar = () => {
                 alt="Logo"
                 className="w-10 h-10 md:w-16 md:h-16 rounded-full"
               />
-              <p className="font-bold text-2xl md:text-3xl bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                <span className="text-purple-400">AY</span>O
+              <p className="font-bold text-2xl md:text-3xl bg-gradient-to-r from-[#4B22B5] to-pink-400 bg-clip-text text-transparent">
+                <span className="text-[#4B22B5]">AY</span>O
               </p>
             </motion.div>
 
@@ -68,17 +69,16 @@ const NavBar = () => {
                 >
                   <Link
                     to={item.to}
-                    className={`relative px-4 py-2 rounded-lg font-medium text-lg transition-all duration-300 ${
-                      location.pathname === item.to
-                        ? 'text-purple-400 bg-purple-500/20'
-                        : 'text-gray-300 hover:text-purple-400 hover:bg-purple-500/10'
-                    }`}
+                    className={`relative px-4 py-2 rounded-lg font-medium text-lg transition-all duration-300 ${location.pathname === item.to
+                        ? 'text-white bg-[#4B22B5]/20'
+                        : 'text-gray-300 hover:text-[#4B22B5] hover:bg-[#4B22B5]/10'
+                      }`}
                   >
                     {item.label}
                     {location.pathname === item.to && (
                       <motion.div
                         layoutId="activeTab"
-                        className="absolute inset-0 bg-purple-500/20 rounded-lg"
+                        className="absolute inset-0 bg-[#4B22B5]/20 rounded-lg"
                         transition={{
                           type: 'spring',
                           stiffness: 300,
@@ -90,12 +90,9 @@ const NavBar = () => {
                 </motion.div>
               ))}
               <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
                 onClick={navigate.bind(null, '/contact')}
-                className="px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg font-medium text-lg hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-lg hover:shadow-purple-500/25"
               >
-                Contact
+                <AnimatedButton text="Get in Touch" onClick={navigate.bind(null, '/contact')} />
               </motion.button>
             </div>
 
@@ -105,7 +102,7 @@ const NavBar = () => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setIsOpen(true)}
-                className={`p-2 rounded-lg bg-purple-500/20 hover:bg-purple-500/30 transition-colors duration-300 ${isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+                className={`p-2 rounded-lg bg-[#4B22B5]/20 hover:bg-[#4B22B5]/30 transition-colors duration-300 ${isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
               >
                 <Menu size={24} />
               </motion.button>
@@ -113,7 +110,7 @@ const NavBar = () => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setIsOpen(false)}
-                className={`absolute inset-0 p-2 rounded-lg bg-purple-500/20 hover:bg-purple-500/30 transition-colors duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                className={`absolute inset-0 p-2 rounded-lg bg-[#4B22B5]/20 hover:bg-[#4B22B5]/30 transition-colors duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
               >
                 <X size={24} />
               </motion.button>
@@ -144,11 +141,10 @@ const NavBar = () => {
                     <Link
                       to={item.to}
                       onClick={() => setIsOpen(false)}
-                      className={`flex items-center gap-4 px-8 py-4 rounded-xl font-medium text-xl transition-all duration-300 ${
-                        location.pathname === item.to
-                          ? 'text-purple-400 bg-purple-500/20 shadow-lg'
-                          : 'text-gray-300 hover:text-purple-400 hover:bg-purple-500/10'
-                      }`}
+                      className={`flex items-center gap-4 px-8 py-4 rounded-xl font-medium text-xl transition-all duration-300 ${location.pathname === item.to
+                          ? 'text-[#4B22B5] bg-[#4B22B5]/20 shadow-lg'
+                          : 'text-gray-300 hover:text-[#4B22B5] hover:bg-[#4B22B5]/10'
+                        }`}
                     >
                       <item.icon size={24} />
                       {item.label}
@@ -164,7 +160,7 @@ const NavBar = () => {
                 >
                   <Link
                     to={'/contact'}
-                    className="flex items-center gap-4 px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-medium text-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-lg hover:shadow-purple-500/25"
+                    className="flex items-center gap-4 px-8 py-4 bg-gradient-to-r from-[#4B22B5] to-pink-600 rounded-xl font-medium text-xl hover:from-[#4B22B5] hover:to-pink-700 transition-all duration-300 shadow-lg hover:shadow-[#4B22B5]/25"
                   >
                     <Mail size={24} />
                     Contact

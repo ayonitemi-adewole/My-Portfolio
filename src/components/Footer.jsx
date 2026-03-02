@@ -5,7 +5,7 @@ import {
   FaLinkedinIn,
 } from 'react-icons/fa';
 import { HiArrowUp } from 'react-icons/hi';
-import logo from '../assets/logo/logo.png';
+import logo from '../assets/logo/logo-2.png';
 import { ChevronRight, ChevronsUp, Mail, MapPin, Phone } from 'lucide-react';
 
 const Footer = () => {
@@ -16,7 +16,7 @@ const Footer = () => {
         <div className="flex items-center gap-2">
           <img src={logo} alt="Logo" className="w-8 h-8 md:w-14 md:h-14" />
           <p className="font-bold text-2xl">
-            <span className="text-purple-600">AY</span>O
+            <span className="text-[#4B22B5]">AY</span>O
           </p>
         </div>
 
@@ -28,20 +28,20 @@ const Footer = () => {
             </h3>
             <ul className="space-y-1 text-neutral-500 text-base flex gap-4 justify-start">
               <li>
-                <a href="#service" className="hover:text-purple-600 transition">
+                <a href="#service" className="hover:text-[#4B22B5] transition">
                   Service
                 </a>
               </li>
               <li>
                 <a
                   href="#projects"
-                  className="hover:text-purple-600 transition"
+                  className="hover:text-[#4B22B5] transition"
                 >
                   Projects
                 </a>
               </li>
               <li>
-                <a href="#contact" className="hover:text-purple-600 transition">
+                <a href="#contact" className="hover:text-[#4B22B5] transition">
                   Contact
                 </a>
               </li>
@@ -53,7 +53,7 @@ const Footer = () => {
                 placeholder="Email Address"
                 className="bg-transparent w-full text-sm focus:outline-none py-5"
               />
-              <button className="flex items-center text-nowrap bg-purple-600 text-white w-fit px-5 py-2 rounded-2xl font-semibold hover:bg-purple-500 transition text-sm">
+              <button className="flex items-center text-nowrap bg-[#4B22B5] text-white w-fit px-5 py-2 rounded-2xl font-semibold hover:bg-[#4B22B5] transition text-sm">
                 Sign Up
                 <ChevronRight className="inline-block ml-2 w-5" />
               </button>
@@ -65,15 +65,15 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-3 w-full">Address</h3>
             <ul className="space-y-5 text-neutral-500 text-base">
               <li>
-                <MapPin className="inline-block w-4 h-4 mr-4 text-purple-600" />
+                <MapPin className="inline-block w-4 h-4 mr-4 text-[#4B22B5]" />
                 Ibadan, Nigeria
               </li>
               <li>
-                <Mail className="inline-block w-4 h-4 mr-4 text-purple-600" />
+                <Mail className="inline-block w-4 h-4 mr-4 text-[#4B22B5]" />
                 ayonitemiadewole16@gmail.com
               </li>
               <li>
-                <Phone className="inline-block w-4 h-4 mr-4 text-purple-600" />
+                <Phone className="inline-block w-4 h-4 mr-4 text-[#4B22B5]" />
                 +234 8126143347
               </li>
             </ul>
@@ -84,33 +84,33 @@ const Footer = () => {
       {/* Bottom Bar */}
       <div className="mt-8 border-t border-gray-800 pt-4 flex flex-col md:flex-row justify-between items-center text-xs text-gray-400 px-4 sm:px-6 md:px-12">
         <p className="text-center md:text-left">
-          Copyright ©2023, <span className="text-purple-600">AYO</span> All
+          Copyright ©2023, <span className="text-[#4B22B5]">AYO</span> All
           Rights Reserved
         </p>
 
         <div className="flex gap-10 mt-3 md:mt-0">
-          <a href="#" className="hover:text-purple-600 transition text-lg">
+          <a href="#" className="hover:text-[#4B22B5] transition text-lg">
             <FaFacebookF />
           </a>
-          <a href="#" className="hover:text-purple-600 transition text-lg">
+          <a href="#" className="hover:text-[#4B22B5] transition text-lg">
             <FaTwitter />
           </a>
-          <a href="#" className="hover:text-purple-600 transition text-lg">
+          <a href="#" className="hover:text-[#4B22B5] transition text-lg">
             <FaInstagram />
           </a>
-          <a href="#" className="hover:text-purple-600 transition text-lg">
+          <a href="#" className="hover:text-[#4B22B5] transition text-lg">
             <FaLinkedinIn />
           </a>
         </div>
       </div>
 
-      {/* Scroll to Top Button */}
-      <button
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="fixed right-4 bottom-4 md:right-6 md:bottom-20 bg-purple-600 text-white p-2 md:p-3 rounded-md hover:bg-purple-500 transition z-10"
-      >
-        <ChevronsUp size={18} />
-      </button>
+      {/* Scroll to Top Button
+      // <button
+      //   onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      //   className="fixed right-4 bottom-4 md:right-6 md:bottom-20 bg-[#4B22B5] text-white p-2 md:p-3 rounded-md hover:bg-[#4B22B5] transition z-10"
+      // >
+      //   <ChevronsUp size={18} />
+      // </button> */}
     </footer>
   );
 };

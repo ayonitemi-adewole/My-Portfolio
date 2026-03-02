@@ -19,7 +19,7 @@ const About = () => {
               <p className="text-base md:text-lg text-neutral-400">About me</p>
               <p className="text-3xl md:text-5xl font font-semibold text-white max-w-[80%] md:max-w-full md:leading-16">
                 Professional{' '}
-                <span className="text-purple-600">Web Solutions</span> For
+                <span className="text-[#4B22B5]">Web Solutions</span> For
                 Digital Products
               </p>
               <p className="text-base md:text-lg text-neutral-400 leading-6 md:leading-8">
@@ -32,25 +32,25 @@ const About = () => {
             <div className="my-5 grid grid-cols-1 gap-6 lg:gap-10 lg:h-fit lg:m-auto md:grid-cols-2 lg:grid-cols-1">
               <div className="flex items-center gap-5 text-white">
                 <div className="flex items-center justify-center w-fit p-0.5">
-                  <CheckIcon className="inline-block text-purple-600" />
+                  <CheckIcon className="inline-block text-[#4B22B5]" />
                 </div>
                 <p className="text-xl font-medium">3+ Years Of Experience</p>
               </div>
               <div className="flex items-center gap-5 text-white">
                 <div className="flex items-center justify-center w-fit p-0.5">
-                  <CheckIcon className="inline-block text-purple-600" />
+                  <CheckIcon className="inline-block text-[#4B22B5]" />
                 </div>
                 <p className="text-xl font-medium">Front-End Development</p>
               </div>
               <div className="flex items-center gap-5 text-white">
                 <div className="flex items-center justify-center w-fit p-0.5">
-                  <CheckIcon className="inline-block text-purple-600" />
+                  <CheckIcon className="inline-block text-[#4B22B5]" />
                 </div>
                 <p className="text-xl font-medium">Web App Development</p>
               </div>
               <div className="flex items-center gap-5 text-white">
                 <div className="flex items-center justify-center w-fit p-0.5">
-                  <CheckIcon className="inline-block text-purple-600" />
+                  <CheckIcon className="inline-block text-[#4B22B5]" />
                 </div>
                 <p className="text-xl font-medium">Mobile App Development</p>
               </div>

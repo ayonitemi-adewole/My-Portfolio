@@ -1,6 +1,6 @@
 import React from 'react';
-import logo from '../assets/logo/logo.png';
-import hero from '../assets/imgs/hero-two.png';
+import logo from '../assets/logo/logo-2.png';
+import hero from '../assets/imgs/hero.png';
 import { motion } from 'framer-motion';
 
 const Hero = () => {
@@ -13,14 +13,14 @@ const Hero = () => {
         viewport={{ once: true }}
         src={hero}
         alt="Hero background"
-        className="absolute inset-0 -top-[0%] md:-top-[5%] lg:top-[5%] xl:top-[10%] w-full h-[90%] md:h-full lg:h-[70%] xl:h-[80%] object-contain -z-5"
+        className="absolute inset-0 -top-[0%] md:-top-[5%] xl:top-[7%] w-full h-[90%] md:h-full lg:h-[70%] xl:h-[80%] object-contain -z-5"
       />
       <motion.div
         initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
         whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
         transition={{ delay: 1.8, duration: 1, ease: 'easeInOut' }}
         viewport={{ once: true }}
-        className="bg-purple-600 w-[88%] md:w-[60%] lg:w-[50%] xl:w-[37%] aspect-square absolute rounded-full top-[55%] md:top-[55%] lg:top-[48%] xl:top-[60%] left-[50%] translate-[-50%] -z-10"></motion.div>
+        className="bg-[#4B22B5] w-[88%] md:w-[60%] lg:w-[50%] xl:w-[37%] aspect-square absolute rounded-full top-[55%] md:top-[55%] lg:top-[48%] xl:top-[60%] left-[50%] translate-[-50%] -z-10"></motion.div>
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -42,7 +42,7 @@ const Hero = () => {
           <p className="font-semibold text-5xl md:text-7xl lg:text-8xl xl:text-[12rem]">
             HELLO
           </p>
-          <p className="text-purple-500 text-2xl md:text-4xl lg:text-5xl font-bold ml-auto xl:ml-0">
+          <p className="text-[#4B22B5] text-2xl md:text-4xl lg:text-5xl font-bold ml-auto xl:ml-0">
             I'M
           </p>
         </motion.div>
@@ -60,7 +60,8 @@ const Hero = () => {
           transition={{ delay: 2.4, duration: 1, ease: 'easeInOut' }}
           viewport={{ once: true }}
           className="text-2xl md:text-4xl lg:text-5xl xl:text-7xl bg-black/50 lg:bg-white/5 backdrop-blur-xl w-fit px-8 py-4 rounded-full">
-          <span className="font-medium">WEB</span> DEVELOPER
+          <span className="font-medium">SOFTWARE </span>
+           DEVELOPER
         </motion.p>
       </div>
     </div>

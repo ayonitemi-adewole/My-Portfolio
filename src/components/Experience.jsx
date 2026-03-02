@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import logo from '../assets/logo/logo.png';
+import logo from '../assets/logo/logo-2.png';
 import { ArrowDown, Calendar } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
@@ -30,11 +30,11 @@ const Experience = () => {
         <div className='flex flex-col gap-4'>
           <div className='flex items-center gap-2'>
             <img src={logo} alt="" className="w-10 h-10" />
-            <p className='text-purple-500 text-base'>MY EXPERIENCE RESUME</p>
+            <p className='text-[#4B22B5] text-base'>MY EXPERIENCE RESUME</p>
           </div>
           <p className='text-2xl sm:text-5xl'>WORK & EDUCATION</p>
         </div>
-        <button className='bg-purple-500 text-black px-6 py-3 text-base w-fit'
+        <button className='bg-[#4B22B5] text-white rounded-full px-6 py-3 text-base w-fit'
         onClick={navigate.bind(null, '/contact')}>CONTACT ME</button>
       </motion.div>
 
@@ -78,10 +78,10 @@ const Experience = () => {
                 transition={{ delay: 1, duration: 1, ease: 'easeInOut' }}
                 viewport={{ once: true }}
                 className='p-[60px] bg-[#1f1f1f] flex flex-col sm:flex-row justify-between h-[50%] '>
-                <div className='min-w-1/2'>
+                <div className='min-w-1/2'> 
                   <div className='mb-[35px]'>
                     <div className='flex items-center text-sm mb-[8px]'>
-                      <Calendar className='inline w-4 h-4 text-purple-600 mr-[7px]' />
+                      <Calendar className='inline w-4 h-4 text-[#4B22B5] mr-[7px]' />
                       <p className='font-light'>2021 - 2025</p>
                     </div>
                     <p className='text-lg mb-[8px] font-medium'>B.Sc degree in Software Engineering</p>
@@ -89,10 +89,10 @@ const Experience = () => {
                   </div>
                   <div className='mb-[35px]'>
                     <div className='flex items-center text-sm mb-[8px]'>
-                      <Calendar className='inline w-4 h-4 text-purple-600 mr-[7px]' />
+                      <Calendar className='inline w-4 h-4 text-[#4B22B5] mr-[7px]' />
                       <p className='font-light'>2023</p>
                     </div>
-                    <p className='text-lg mb-[8px] font-medium'>Software Engineering - Front-End Development</p>
+                    <p className='text-lg mb-[8px] font-medium'>Software Engineering - <br></br> Front-End Development</p>
                     <p className='text-lg mt-1 font-bold font-mono uppercase'>SQI College of ICT</p>
                   </div>
                 </div>
@@ -102,7 +102,7 @@ const Experience = () => {
                 <div className='min-w-1/2'>
                   <div className='mb-[35px]'>
                     <div className='flex items-center text-sm mb-[8px]'>
-                      <Calendar className='inline w-4 h-4 text-purple-600 mr-[7px]' />
+                      <Calendar className='inline w-4 h-4 text-[#4B22B5] mr-[7px]' />
                       <p className='font-light'>2024</p>
                     </div>
                     <p className='text-lg mb-[8px] font-medium'>Software Engineering - Advanced Front-End Development</p>
@@ -110,11 +110,11 @@ const Experience = () => {
                   </div>
                   <div className='mb-[35px]'>
                     <div className='flex items-center text-sm mb-[8px]'>
-                      <Calendar className='inline w-4 h-4 text-purple-600 mr-[7px]' />
-                      <p className='font-light'>2025</p>
+                      <Calendar className='inline w-4 h-4 text-[#4B22B5] mr-[7px]' />
+                      <p className='font-light'>2025 - current</p>
                     </div>
                     <p className='text-lg mb-[8px] font-medium'>Mobile App Development</p>
-                    <p className='text-lg mt-1 font-bold font-mono uppercase'>Youtube</p>
+                    <p className='text-lg mt-1 font-bold font-mono uppercase'>Online courses</p>
                   </div>
                 </div>
               </motion.div>
@@ -148,7 +148,7 @@ const Experience = () => {
                 <div className='min-w-1/2'>
                   <div className='mb-[35px]'>
                     <div className='flex items-center text-sm mb-[8px]'>
-                      <Calendar className='inline w-4 h-4 text-purple-600 mr-[7px]' />
+                      <Calendar className='inline w-4 h-4 text-[#4B22B5] mr-[7px]' />
                       <p className='font-light'>2021 - 2025</p>
                     </div>
                     <p className='text-lg mb-[8px] font-medium'>B.Sc degree in Software Engineering</p>
@@ -156,7 +156,7 @@ const Experience = () => {
                   </div>
                   <div className='mb-[35px]'>
                     <div className='flex items-center text-sm mb-[8px]'>
-                      <Calendar className='inline w-4 h-4 text-purple-600 mr-[7px]' />
+                      <Calendar className='inline w-4 h-4 text-[#4B22B5] mr-[7px]' />
                       <p className='font-light'>2023</p>
                     </div>
                     <p className='text-lg mb-[8px] font-medium'>Software Engineering - Front-End Development</p>
@@ -169,7 +169,7 @@ const Experience = () => {
                 <div className='min-w-1/2'>
                   <div className='mb-[35px]'>
                     <div className='flex items-center text-sm mb-[8px]'>
-                      <Calendar className='inline w-4 h-4 text-purple-600 mr-[7px]' />
+                      <Calendar className='inline w-4 h-4 text-[#4B22B5] mr-[7px]' />
                       <p className='font-light'>2024</p>
                     </div>
                     <p className='text-lg mb-[8px] font-medium'>Software Engineering - Advanced Front-End Development</p>
@@ -177,7 +177,7 @@ const Experience = () => {
                   </div>
                   <div className='mb-[35px]'>
                     <div className='flex items-center text-sm mb-[8px]'>
-                      <Calendar className='inline w-4 h-4 text-purple-600 mr-[7px]' />
+                      <Calendar className='inline w-4 h-4 text-[#4B22B5] mr-[7px]' />
                       <p className='font-light'>2025</p>
                     </div>
                     <p className='text-lg mb-[8px] font-medium'>Mobile App Development</p>
