@@ -1,10 +1,17 @@
-import { ChevronRight } from 'lucide-react'
-import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { ChevronRight, X } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import logo from '../assets/logo/logo-2.png';
 
 const MySkills = () => {
     const [modalData, setModalData] = useState(null);
-    const [dimensions, setDimensions] = useState({ width: window.innerWidth, height: window.innerHeight });
+    // Initialize with correct value to prevent animation issues from incorrect initial render
+    const [dimensions, setDimensions] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return { width: window.innerWidth, height: window.innerHeight };
+        }
+        return { width: 0, height: 0 };
+    });
 
     const skills = [
         {
@@ -87,23 +94,58 @@ const MySkills = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.05,
+            },
+        },
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+    };
+
     return (
         <>
-            <div className='relative flex flex-col items-center justify-between xl:flex-row gap-10 bg-black/80 w-full p-5 py-20 md:px-20 xl:px-20 mt-16 md:mt-10 lg:mt-20 xl:mt-10 max-w-[1400px] mx-auto'>
+            <div className='relative flex flex-col items-center justify-between xl:flex-row gap-10 bg-black/80 w-full p-5 py-20 md:px-20 xl:px-20 mt-16 md:mt-10 lg:mt-20 xl:mt-10 max-w-[1400px] mx-auto overflow-hidden'>
+                {/* Background gradient orbs */}
+                <div className="absolute top-20 left-0 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl -z-10" />
+                <div className="absolute bottom-20 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl -z-10" />
+
                 <div className='lg:max-w-[50%] gap-6 flex flex-col mb-10'>
-                    <p className='text-base md:text-lg lg:text-xl font-medium text-neutral-300'>My Skills</p>
-                    <p className='text-4xl md:text-5xl lg:text-6xl font-semibold'>Let's Explore <span className='text-[#4B22B5]'>My Skill Set</span></p>
+                    {/* Header with glassmorphism */}
+                    <div className="relative inline-flex self-start">
+                        <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl blur opacity-30"></div>
+                        <div className="relative flex items-center gap-2 bg-white/5 backdrop-blur-xl border border-white/10 px-4 py-2 rounded-xl">
+                            <img src={logo} alt="" className="w-5 h-5" />
+                            <p className='text-purple-400 text-sm font-semibold uppercase tracking-widest'>My Skills</p>
+                        </div>
+                    </div>
+                    
+                    <p className='text-4xl md:text-5xl lg:text-6xl font-semibold'>
+                        Let's Explore <span className='text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400'>My Skill Set</span>
+                    </p>
                     <p className='xl:hidden text-base md:text-lg lg:text-xl font-light text-neutral-300'>Right under is a grid of my skills, click on it to view more details</p>
                     <p className='hidden xl:block text-base md:text-lg lg:text-xl font-light text-neutral-300'>By the right is a grid of my skills, click on it to view more details</p>
-                    {/* <button className=" text-black font-bold text-xl bg-[#4B22B5] rounded-xl flex items-center justify-center w-fit px-4 py-2">Learn More <ChevronRight className='' /></button> */}
                 </div>
+                
                 <div className='min-w-[50%]'>
-                    <div>
-                        <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 xl:max-h-[41vh] overflow-y-auto xl:p-5'>
+                    <motion.div
+                        variants={containerVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                    >
+                        <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 xl:max-h-[41vh] overflow-y-auto xl:p-5 pr-2'>
                             {skills.map((skill, index) => (
                                 <motion.div
                                     key={index}
-                                    className='bg-[#1f1f1f] p-6 flex flex-col items-center justify-center gap-4 rounded-2xl hover:scale-105 transition-transform cursor-pointer'
+                                    variants={itemVariants}
+                                    className='relative group cursor-pointer'
                                     onClick={(e) => {
                                         const rect = e.currentTarget.getBoundingClientRect();
                                         const cardCenterX = rect.left + rect.width / 2;
@@ -116,16 +158,21 @@ const MySkills = () => {
                                             cardHeight: rect.height
                                         });
                                     }}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: index * 0.1 }}
+                                    whileHover={{ scale: 1.03 }}
+                                    whileTap={{ scale: 0.98 }}
                                 >
-                                    <img src={skill.icon} alt={skill.name} className='w-16 h-16' />
-                                    <p className='text-white font-medium text-lg'>{skill.name}</p>
+                                    {/* Gradient border on hover */}
+                                    <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                    <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 hover:border-purple-500/30 p-5 flex flex-col items-center justify-center gap-3 rounded-2xl transition-all duration-300 h-full">
+                                        <div className="w-14 h-14 flex items-center justify-center">
+                                            <img src={skill.icon} alt={skill.name} className='w-full h-full object-contain' />
+                                        </div>
+                                        <p className='text-white font-medium text-sm text-center'>{skill.name}</p>
+                                    </div>
                                 </motion.div>
                             ))}
                         </div>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
 
@@ -133,8 +180,8 @@ const MySkills = () => {
                 {modalData && (
                     (() => {
                         const { skill, cardCenterX, cardCenterY, cardWidth, cardHeight } = modalData;
-                        const modalWidth = 448; // 28rem in px
-                        const modalHeight = 300; // approximate
+                        const modalWidth = 448;
+                        const modalHeight = 300;
                         const initialScale = cardWidth / modalWidth;
                         const centerX = dimensions.width / 2;
                         const centerY = dimensions.height / 2;
@@ -145,14 +192,25 @@ const MySkills = () => {
 
                         return (
                             <motion.div
-                                className="fixed inset-0 bg-black/70 flex items-center justify-center z-50"
+                                className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-50"
                                 onClick={() => setModalData(null)}
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
                             >
+                                {/* Close button */}
+                                <motion.button
+                                    initial={{ scale: 0 }}
+                                    animate={{ scale: 1 }}
+                                    exit={{ scale: 0 }}
+                                    className="absolute top-4 right-4 p-2 bg-white/10 hover:bg-white/20 rounded-full text-white z-50 transition-colors"
+                                    onClick={() => setModalData(null)}
+                                >
+                                    <X size={24} />
+                                </motion.button>
+
                                 <motion.div
-                                    className="bg-[#1f1f1f] p-8 rounded-3xl flex flex-col items-center gap-4"
+                                    className="relative bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-3xl flex flex-col items-center gap-4 max-w-md mx-4"
                                     style={{ width: '25rem' }}
                                     onClick={(e) => e.stopPropagation()}
                                     initial={{ x: initialX, y: initialY, scale: initialScale, opacity: 0 }}
@@ -160,9 +218,15 @@ const MySkills = () => {
                                     exit={{ x: initialX, y: initialY, scale: initialScale, opacity: 0 }}
                                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
                                 >
-                                    <img src={skill.icon} alt={skill.name} className="w-24 h-24" />
-                                    <h2 className="text-white font-medium text-2xl">{skill.name}</h2>
-                                    <p className="text-neutral-300 text-center font-mono text-xl">{skill.description}</p>
+                                    {/* Gradient border */}
+                                    <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 via-pink-500 to-blue-600 rounded-3xl blur opacity-30"></div>
+                                    <div className="relative">
+                                        <img src={skill.icon} alt={skill.name} className="w-24 h-24 object-contain" />
+                                    </div>
+                                    <h2 className="text-white font-bold text-2xl relative">{skill.name}</h2>
+                                    <p className="text-neutral-300 text-center font-mono text-sm leading-relaxed relative">
+                                        {skill.description}
+                                    </p>
                                 </motion.div>
                             </motion.div>
                         );

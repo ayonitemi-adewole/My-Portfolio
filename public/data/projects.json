@@ -1,20 +1,30 @@
 [
   {
-    "name": "E-commerce Application",
-    "title": "Project One",
-    "intro": "I create E-commerce Web Application for Businesses",
-    "primaryImage": "/assets/project_img/project1.webp",
-    "additionalImages": ["/assets/project_img/project1.webp", "/assets/project_img/project1.webp", "/assets/project_img/project1.webp"],
-    "description": "This is a responsive e-commerce website built with React and Node.js, featuring user authentication and a shopping cart.",
-    "summary": "This project showcases a full-stack e-commerce solution with modern UI/UX design, secure payment integration, and responsive layout. lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    "name": "Vaultly",
+    "title": "Crypto Portfolio Tracker",
+    "intro": "Vaultly is a next-generation crypto portfolio tracking application designed for individuals and fintech businesses to monitor digital assets in real-time.",
+    "primaryImage": "/assets/project_img/vaultly-dashboard.png",
+    "additionalImages": [
+      "/assets/project_img/vaultly-add-asset.png",
+      "/assets/project_img/vaultly-portfolio.png",
+      "/assets/project_img/vaultly-transactions.png"
+    ],
+    "description": "Vaultly is a full-stack crypto portfolio tracker built with React, TypeScript, Firebase, and CoinGecko API. The platform allows users to manage and monitor their crypto investments with real-time price updates, transaction logs, and performance analytics. It features Paystack API integration for secure deposits and withdrawals, ensuring seamless fund management directly from the app. The UI is designed using ShadCN UI with modern aesthetics like glassmorphism, dark/light mode support, and smooth Framer Motion transitions. Vaultly ensures secure authentication via Firebase Auth, with user-specific data stored in Firestore for scalability and security.",
+    "summary": "Vaultly simplifies digital asset management by offering an intuitive dashboard that provides instant insights into a user's crypto portfolio. Users can add assets, view real-time market data, and analyze profit or loss based on historical transactions. The system intelligently updates portfolio values using live data from CoinGecko, while every transaction is logged for transparency and accurate reporting. Vaultly also features role-based access control, responsive mobile design, and a dark/light mode toggle for enhanced usability. Designed for both retail users and fintech startups, Vaultly demonstrates the perfect balance of functionality, security, and visual polish — a complete solution for modern crypto portfolio management.",
+    "link": "https://vaultly-neon.vercel.app/"
   },
   {
-    "name": "Mobile App",
-    "title": "Project Two",
-    "intro": "I create Mobile Applications for Businesses",
-    "primaryImage": "/assets/project_img/project1.webp",
-    "additionalImages": ["/assets/project_img/project1.webp", "/assets/project_img/project1.webp", "/assets/project_img/project1.webp"],
-    "description": "This is a responsive mobile application built with React Native, featuring real-time chat and push notifications.",
-    "summary": "An innovative mobile application developed for seamless user experience, with features like real-time notifications and offline support. lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    "name": "Vaultly 2.0",
+    "title": "Crypto Portfolio Tracker",
+    "intro": "Vaultly is a next-generation crypto portfolio tracking application designed for individuals and fintech businesses to monitor digital assets in real-time.",
+    "primaryImage": "/assets/project_img/vaultly-dashboard.png",
+    "additionalImages": [
+      "/assets/project_img/vaultly-add-asset.png",
+      "/assets/project_img/vaultly-portfolio.png",
+      "/assets/project_img/vaultly-transactions.png"
+    ],
+    "description": "Vaultly is a full-stack crypto portfolio tracker built with React, TypeScript, Firebase, and CoinGecko API. The platform allows users to manage and monitor their crypto investments with real-time price updates, transaction logs, and performance analytics. It features Paystack API integration for secure deposits and withdrawals, ensuring seamless fund management directly from the app. The UI is designed using ShadCN UI with modern aesthetics like glassmorphism, dark/light mode support, and smooth Framer Motion transitions. Vaultly ensures secure authentication via Firebase Auth, with user-specific data stored in Firestore for scalability and security.",
+    "summary": "Vaultly simplifies digital asset management by offering an intuitive dashboard that provides instant insights into a user's crypto portfolio. Users can add assets, view real-time market data, and analyze profit or loss based on historical transactions. The system intelligently updates portfolio values using live data from CoinGecko, while every transaction is logged for transparency and accurate reporting. Vaultly also features role-based access control, responsive mobile design, and a dark/light mode toggle for enhanced usability. Designed for both retail users and fintech startups, Vaultly demonstrates the perfect balance of functionality, security, and visual polish — a complete solution for modern crypto portfolio management.",
+    "link": "https://vaultly-neon.vercel.app/"
   }
 ]

@@ -1,35 +1,54 @@
-/* From Uiverse.io by aryamitra06 */ 
+/* Modern Animated Loader with Gradient and Glow Effects */
 .loader {
   display: flex;
   align-items: center;
+  justify-content: center;
+  gap: 4px;
 }
 
 .bar {
   display: inline-block;
-  width: 3px;
+  width: 4px;
   height: 40px;
-  background-color: #4c22b549;
+  background: linear-gradient(to top, #4B22B5, #8B5CF6);
   border-radius: 10px;
-  animation: scale-up4 1s linear infinite;
+  animation: scale-up4 1s ease-in-out infinite;
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
 }
 
 .bar:nth-child(2) {
-  height: 50px;
-  margin: 0 5px;
-  animation-delay: .25s;
+  height: 55px;
+  margin: 0 4px;
+  animation-delay: 0.15s;
+  background: linear-gradient(to top, #7C3AED, #A78BFA);
 }
 
 .bar:nth-child(3) {
-  animation-delay: .5s;
+  animation-delay: 0.3s;
+  background: linear-gradient(to top, #6366F1, #818CF8);
+}
+
+.bar:nth-child(1) {
+  animation-delay: 0.45s;
 }
 
 @keyframes scale-up4 {
-  20% {
-    background-color: #4c22b5;
-    transform: scaleY(1.5);
+  0%, 100% {
+    transform: scaleY(0.5);
+    opacity: 0.5;
   }
-
-  40% {
+  25% {
     transform: scaleY(1);
+    opacity: 1;
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.8);
+  }
+  50% {
+    transform: scaleY(0.7);
+    opacity: 0.8;
+  }
+  75% {
+    transform: scaleY(1.2);
+    opacity: 1;
+    box-shadow: 0 0 25px rgba(139, 92, 246, 1);
   }
 }
