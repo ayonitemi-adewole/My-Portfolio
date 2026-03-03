@@ -2,10 +2,10 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import Background from '../components/Background';
-import Footer from '../components/Footer';
 import { InfinitySpin } from 'react-loader-spinner';
 import { SquarePen, X, ChevronLeft, ChevronRight, ArrowLeft, ExternalLink, Code2, Layers, Zap } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Footer from '../components/Footer';
 
 const techIcons = {
   react: 'React',
@@ -97,8 +97,8 @@ const ProjectDetails = () => {
     <>
       <NavBar />
       <Background />
-      <div className="relative flex flex-col w-full overflow-y-scroll">
-        <div className="px-5 md:px-14 xl:px-5 pt-20 pb-10 max-w-[1400px] mx-auto text-white">
+      <div className="relative flex flex-col h-screen w-full overflow-y-scroll">
+        <div className="px-5 md:px-14 xl:px-5 pt-20 pb-10 max-w-[1400px] mx-auto text-white flex-grow">
           {/* Back Button */}
           <motion.button
             initial={{ opacity: 0, x: -20 }}
@@ -124,7 +124,7 @@ const ProjectDetails = () => {
               <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 md:p-12">
                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
                   <div className="flex-1">
-                    <motion.h1 
+                    <motion.h1
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.2, duration: 0.6 }}
@@ -132,7 +132,7 @@ const ProjectDetails = () => {
                     >
                       {project.name}
                     </motion.h1>
-                    <motion.p 
+                    <motion.p
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.3, duration: 0.6 }}
@@ -141,9 +141,9 @@ const ProjectDetails = () => {
                       {project.intro}
                     </motion.p>
                   </div>
-                  
+
                   {/* Tech Stack Tags */}
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.4, duration: 0.5 }}
@@ -184,7 +184,7 @@ const ProjectDetails = () => {
             </div>
 
             {/* CTA Buttons */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.6 }}
@@ -394,11 +394,10 @@ const ProjectDetails = () => {
                       e.stopPropagation();
                       setCurrentImageIndex(index);
                     }}
-                    className={`flex-shrink-0 w-16 h-12 rounded-lg overflow-hidden border-2 transition-all ${
-                      index === currentImageIndex
-                        ? 'border-purple-500 scale-110'
-                        : 'border-transparent opacity-50 hover:opacity-80'
-                    }`}
+                    className={`flex-shrink-0 w-16 h-12 rounded-lg overflow-hidden border-2 transition-all ${index === currentImageIndex
+                      ? 'border-purple-500 scale-110'
+                      : 'border-transparent opacity-50 hover:opacity-80'
+                      }`}
                   >
                     <img
                       src={image}
