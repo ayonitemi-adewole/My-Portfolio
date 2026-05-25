@@ -13,7 +13,7 @@ const Footer = () => {
   const socialLinks = [
     { icon: FaWhatsapp, href: 'https://wa.link/yq00wz', label: 'WhatsApp' },
     { icon: FaLinkedinIn, href: 'https://www.linkedin.com/in/ayonitemi-adewole-adedamola', label: 'LinkedIn' },
-    { icon: FaInstagram, href: 'https://www.instagram.com/_.ayonitemi/', label: 'Instagram' },
+    { icon: FaInstagram, href: 'https://www.instagram.com/_.ayonitemi', label: 'Instagram' },
     { icon: FaTwitter, href: '#', label: 'Twitter' },
   ];
 
@@ -224,7 +224,7 @@ const Footer = () => {
         </p>
 
         {/* Social Links */}
-        <div className="flex gap-4 mt-4 md:mt-0">
+        <div className="flex gap-4  mt-4 md:mt-0 lg:w-1/2">
           {socialLinks.map((social, index) => (
             <motion.a
               key={index}

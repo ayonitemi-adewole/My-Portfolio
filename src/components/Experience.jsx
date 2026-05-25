@@ -85,7 +85,7 @@ const Experience = () => {
         className="flex flex-col sm:flex-row sm:items-center gap-6 sm:justify-between w-full mb-16"
       >
         <div className="flex flex-col gap-4">
-          <div className="relative inline-flex">
+          <div className="relative inline-flex w-fit">
             <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl blur opacity-30"></div>
             <div className="relative flex items-center gap-2 bg-white/5 backdrop-blur-xl border border-white/10 px-4 py-2 rounded-xl">
               <img src={logo} alt="" className="w-6 h-6" />

@@ -14,6 +14,7 @@ const techIcons = {
   shadcn: 'ShadCN UI',
   framer: 'Framer Motion',
   paystack: 'Paystack',
+  flutterwave: 'Flutterwave',
   coingecko: 'CoinGecko',
 };
 
@@ -192,12 +193,12 @@ const ProjectDetails = () => {
             >
               <button
                 onClick={() => window.open(project.link, '_blank')}
-                className="flex items-center gap-2 px-6 py-3 bg-[#4B22B5] hover:bg-[#5a2fca] text-white rounded-xl font-medium transition-all hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25"
+                className="flex items-center gap-2 cursor-pointer px-6 py-3 bg-[#4B22B5] hover:bg-[#5a2fca] text-white rounded-xl font-medium transition-all hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25"
               >
                 <ExternalLink className="w-5 h-5" />
                 Visit Website
               </button>
-              <button className="flex items-center gap-2 px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-xl font-medium transition-all hover:scale-105">
+              <button className="flex items-center gap-2 cursor-pointer px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-xl font-medium transition-all hover:scale-105">
                 <Code2 className="w-5 h-5" />
                 View Code
               </button>

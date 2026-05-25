@@ -140,7 +140,7 @@ const MySkills = () => {
                         whileInView="visible"
                         viewport={{ once: true }}
                     >
-                        <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 xl:max-h-[41vh] overflow-y-auto xl:p-5 pr-2'>
+                        <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 xl:max-h-[41vh] overflow-y-scroll scrollbar-hide xl:p-5 pr-2'>
                             {skills.map((skill, index) => (
                                 <motion.div
                                     key={index}
@@ -163,7 +163,7 @@ const MySkills = () => {
                                 >
                                     {/* Gradient border on hover */}
                                     <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                                    <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 hover:border-purple-500/30 p-5 flex flex-col items-center justify-center gap-3 rounded-2xl transition-all duration-300 h-full">
+                                    <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 hover:border-purple-500/30 p-4 flex flex-col items-center justify-center gap-3 rounded-2xl transition-all duration-300 h-full">
                                         <div className="w-14 h-14 flex items-center justify-center">
                                             <img src={skill.icon} alt={skill.name} className='w-full h-full object-contain' />
                                         </div>

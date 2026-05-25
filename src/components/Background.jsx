@@ -11,8 +11,6 @@ const Background = () => {
         <div className="h-screen w-[10%] shadow-xs shadow-white opacity-5"></div>
         <div className="h-screen w-[10%] shadow-xs shadow-white opacity-5"></div>
         <div className="h-screen w-[10%] shadow-xs shadow-white opacity-5"></div>
-        <div className="h-screen w-[10%] shadow-xs shadow-white opacity-5"></div>
-        <div className="h-screen w-[10%] shadow-xs shadow-white opacity-5"></div>
       </div>
     </div>
   );
