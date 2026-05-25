@@ -7,9 +7,6 @@ const CarouselStrip = () => {
     'UI/UX DESIGN',
     'GRAPHIC DESIGN',
     'SEO OPTIMIZATION',
-    'DIGITAL MARKETING',
-    'CONTENT CREATION',
-    'BRAND STRATEGY',
   ];
 
   return (
