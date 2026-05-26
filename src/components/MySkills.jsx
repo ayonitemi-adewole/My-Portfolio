@@ -125,14 +125,14 @@ const MySkills = () => {
                             <p className='text-purple-400 text-sm font-semibold uppercase tracking-widest'>My Skills</p>
                         </div>
                     </div>
-                    
+
                     <p className='text-4xl md:text-5xl lg:text-6xl font-semibold'>
                         Let's Explore <span className='text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400'>My Skill Set</span>
                     </p>
                     <p className='xl:hidden text-base md:text-lg lg:text-xl font-light text-neutral-300'>Right under is a grid of my skills, click on it to view more details</p>
                     <p className='hidden xl:block text-base md:text-lg lg:text-xl font-light text-neutral-300'>By the right is a grid of my skills, click on it to view more details</p>
                 </div>
-                
+
                 <div className='min-w-[50%]'>
                     <motion.div
                         variants={containerVariants}
@@ -171,6 +171,22 @@ const MySkills = () => {
                                     </div>
                                 </motion.div>
                             ))}
+                        </div>
+                    </motion.div>
+                    {/* Scroll Indicator */}
+                    <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 5, duration: 0.5, repeat: Infinity, repeatType: 'reverse' }}
+                        className="absolute right-10 top-1/2 -translate-y-1/2 flex flex-col items-center gap-2"
+                    >
+                        <span className="text-neutral-500 text-xs uppercase tracking-widest">Scroll</span>
+                        <div className="w-6 h-10 border-2 border-neutral-600 rounded-full flex justify-center pt-2">
+                            <motion.div
+                                animate={{ y: [0, 12, 0] }}
+                                transition={{ duration: 1.5, repeat: Infinity }}
+                                className="w-1.5 h-1.5 bg-purple-500 rounded-full"
+                            />
                         </div>
                     </motion.div>
                 </div>

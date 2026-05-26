@@ -387,7 +387,7 @@ const ProjectDetails = () => {
               </motion.div>
 
               {/* Thumbnail Strip */}
-              <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-2 max-w-[90vw] overflow-x-auto pb-2">
+              <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-2 max-w-[90vw] overflow-x-auto scrollbar-hide pb-2">
                 {project.additionalImages.map((image, index) => (
                   <button
                     key={index}
@@ -395,7 +395,7 @@ const ProjectDetails = () => {
                       e.stopPropagation();
                       setCurrentImageIndex(index);
                     }}
-                    className={`flex-shrink-0 w-16 h-12 rounded-lg overflow-hidden border-2 transition-all ${index === currentImageIndex
+                    className={`cursor-pointer flex-shrink-0 w-16 h-12 rounded-lg overflow-hidden border-2 transition-all ${index === currentImageIndex
                       ? 'border-purple-500 scale-110'
                       : 'border-transparent opacity-50 hover:opacity-80'
                       }`}

@@ -1,6 +1,6 @@
 import Home from './pages/Home';
 import ProjectDetails from './pages/ProjectDetails';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import About from './pages/About';
 import Services from './pages/Services';
 import Contact from './pages/Contact';
@@ -26,9 +26,8 @@ const App = () => {
     <div className="relative w-full h-screen">
       {/* Loader */}
       <div
-        className={`absolute inset-0 flex items-center justify-center text-center py-20 w-full h-screen transition-opacity duration-1000 ease-in-out ${
-          loading ? 'opacity-100' : 'opacity-0 pointer-events-none'
-        }`}
+        className={`absolute inset-0 flex items-center justify-center text-center py-20 w-full h-screen transition-opacity duration-1000 ease-in-out ${loading ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          }`}
       >
         <Background />
         <InfinitySpin
@@ -41,9 +40,8 @@ const App = () => {
 
       {/* Content */}
       <div
-        className={`absolute inset-0 flex flex-col items-center w-full h-screen transition-opacity duration-1000 ease-in-out ${
-          loading ? 'opacity-0 pointer-events-none invisible' : 'opacity-100'
-        }`}
+        className={`absolute inset-0 flex flex-col items-center w-full h-screen transition-opacity duration-1000 ease-in-out ${loading ? 'opacity-0 pointer-events-none invisible' : 'opacity-100'
+          }`}
       >
         <Background />
         <Routes>
@@ -53,7 +51,7 @@ const App = () => {
           <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/projects" element={<Projects />} />
-          {/* <Route path='*' element={<NotFound />} /> */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
       <ScrollUpBtn />

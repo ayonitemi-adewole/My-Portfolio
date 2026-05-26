@@ -18,7 +18,7 @@ const Home = () => {
       <Experience />
 
       <MySkills />
-      <MyProjects />
+      <MyProjects limit={2} />
       <GetInTouch />
       <Footer />
     </div>
