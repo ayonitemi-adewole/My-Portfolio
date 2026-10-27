@@ -1,32 +1,143 @@
 @import "tailwindcss";
 
-@keyframes slide {
-  0% {
-    transform: translateX(0);
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+/* Design tokens. Utilities like bg-bg, text-muted, border-line read these
+   variables, so swapping them under [data-theme] re-themes the whole site. */
+@theme {
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-bg: #0a0910;
+  --color-surface: #13111b;
+  --color-elevated: #1b1825;
+  --color-line: #ffffff14;
+  --color-fg: #f4f2f8;
+  --color-muted: #a29db0;
+  --color-subtle: #6f6a7e;
+  --color-accent: #8b5cf6;
+  --color-accent-strong: #a78bfa;
+  --color-accent-fg: #ffffff;
+  --color-lime: #c4f25c;
+
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-blink: blink 1s step-end infinite;
+  --animate-float: float 6s ease-in-out infinite;
+}
+
+[data-theme='light'] {
+  --color-bg: #f7f6fb;
+  --color-surface: #ffffff;
+  --color-elevated: #efedf6;
+  --color-line: #1a142a17;
+  --color-fg: #17141f;
+  --color-muted: #5d5869;
+  --color-subtle: #8c879a;
+  --color-accent: #6d3ae8;
+  --color-accent-strong: #5b2bd6;
+  --color-lime: #5f8a00;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
   }
-  100% {
-    transform: translateX(-10%);
+
+  body {
+    @apply bg-bg text-fg font-sans antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight;
+  }
+
+  ::selection {
+    @apply bg-accent text-accent-fg;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
-.animate-slide {
-  animation: slide 10s linear infinite;
-}
-
-@keyframes carousel {
-  0% {
-    transform: translateX(0);
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 md:px-8;
   }
-  100% {
-    transform: translateX(-106.5%);
+
+  .card {
+    @apply rounded-3xl border border-line bg-surface;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-all duration-300 active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  /* Use together with .btn, e.g. "btn btn-primary". */
+  .btn-primary {
+    @apply bg-accent text-accent-fg hover:bg-accent-strong hover:shadow-[0_8px_30px_-6px] hover:shadow-accent/60;
+  }
+
+  .btn-ghost {
+    @apply border border-line bg-surface text-fg hover:border-accent/50 hover:bg-elevated;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-accent-strong;
+  }
+
+  .chip {
+    @apply inline-flex items-center rounded-full border border-line bg-elevated px-3 py-1 text-xs font-medium text-muted;
+  }
+
+  .input {
+    @apply w-full rounded-2xl border border-line bg-bg px-4 py-3.5 text-fg placeholder:text-subtle outline-none transition-colors focus:border-accent;
+  }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, var(--color-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--color-line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
   }
 }
 
-.animate-carousel {
-  animation: carousel 50s linear infinite;
+@utility scrollbar-hide {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
-
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
-

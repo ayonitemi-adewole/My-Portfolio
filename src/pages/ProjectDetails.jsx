@@ -1,417 +1,238 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import NavBar from '../components/NavBar';
-import Background from '../components/Background';
-import { InfinitySpin } from 'react-loader-spinner';
-import { SquarePen, X, ChevronLeft, ChevronRight, ArrowLeft, ExternalLink, Code2, Layers, Zap } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Footer from '../components/Footer';
+import { useMemo, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { ArrowLeft, ArrowRight, ArrowUpRight, Expand, Link2 } from 'lucide-react';
+import { useProjects } from '../hooks/useProjects';
+import { useCopy } from '../hooks/useCopy';
+import Lightbox from '../components/Lightbox';
+import Reveal from '../components/ui/Reveal';
+import ContactCTA from '../components/ContactCTA';
 
-const techIcons = {
-  react: 'React',
-  typescript: 'TypeScript',
-  firebase: 'Firebase',
-  shadcn: 'ShadCN UI',
-  framer: 'Framer Motion',
-  paystack: 'Paystack',
-  flutterwave: 'Flutterwave',
-  coingecko: 'CoinGecko',
-};
+const ease = [0.22, 1, 0.36, 1];
 
 const ProjectDetails = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const [project, setProject] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [isCarouselOpen, setIsCarouselOpen] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const { projects, loading } = useProjects();
+  const copy = useCopy();
+  const [lightbox, setLightbox] = useState(null);
 
-  useEffect(() => {
-    fetch('/data/projects.json')
-      .then((response) => response.json())
-      .then((data) => {
-        const projectData = data[parseInt(id) - 1];
-        setProject(projectData);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error('Error fetching project data:', error);
-        setLoading(false);
-      });
-  }, [id]);
+  const index = projects.findIndex((p) => p.id === Number(id));
+  const project = projects[index];
+  const prev = projects[(index - 1 + projects.length) % projects.length];
+  const next = projects[(index + 1) % projects.length];
 
-  // Keyboard navigation for carousel
-  const handleKeyDown = useCallback((e) => {
-    if (!isCarouselOpen) return;
-    if (e.key === 'Escape') setIsCarouselOpen(false);
-    if (e.key === 'ArrowLeft') {
-      setCurrentImageIndex((prev) =>
-        prev === 0 ? project.additionalImages.length - 1 : prev - 1
-      );
-    }
-    if (e.key === 'ArrowRight') {
-      setCurrentImageIndex((prev) =>
-        prev === project.additionalImages.length - 1 ? 0 : prev + 1
-      );
-    }
-  }, [isCarouselOpen, project]);
-
-  useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [handleKeyDown]);
+  const gallery = useMemo(
+    () => (project ? [...new Set([project.primaryImage, ...project.additionalImages])] : []),
+    [project]
+  );
 
   if (loading) {
     return (
-      <div className="text-white flex items-center justify-center text-center py-20 w-full h-screen">
-        <InfinitySpin
-          visible={true}
-          width="200"
-          color="#ffffff"
-          ariaLabel="infinity-spin-loading"
-        />
+      <div className="container-page animate-pulse pt-40">
+        <div className="h-4 w-32 rounded bg-elevated" />
+        <div className="mt-8 h-16 w-2/3 rounded bg-elevated" />
+        <div className="mt-6 h-5 w-1/2 rounded bg-elevated" />
+        <div className="mt-12 aspect-[16/9] rounded-[2rem] bg-elevated" />
       </div>
     );
   }
 
   if (!project) {
     return (
-      <div className="text-white text-center py-20">Projects not found</div>
+      <div className="container-page flex min-h-[70vh] flex-col items-center justify-center gap-6 pt-32 text-center">
+        <p className="font-display text-4xl font-semibold">Project not found</p>
+        <p className="text-muted">It may have been moved or the link is incorrect.</p>
+        <Link to="/projects" className="btn btn-primary">
+          <ArrowLeft className="h-4 w-4" /> Back to projects
+        </Link>
+      </div>
     );
   }
 
-  // Extract tech stack from description
-  const getTechStack = () => {
-    const techs = [];
-    const descLower = project.description.toLowerCase();
-    Object.entries(techIcons).forEach(([key, value]) => {
-      if (descLower.includes(key)) {
-        techs.push(value);
-      }
-    });
-    return techs.length > 0 ? techs : ['React', 'TypeScript', 'Firebase'];
-  };
-
-  const techStack = getTechStack();
+  const openAt = (src) => setLightbox(gallery.indexOf(src));
 
   return (
     <>
-      <NavBar />
-      <Background />
-      <div className="relative flex flex-col h-screen w-full overflow-y-scroll">
-        <div className="px-5 md:px-14 xl:px-5 pt-20 pb-10 max-w-[1400px] mx-auto text-white flex-grow">
-          {/* Back Button */}
-          <motion.button
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            onClick={() => navigate(-1)}
-            className="flex items-center gap-2 text-neutral-400 hover:text-white transition-colors mb-8 group"
-          >
-            <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-            <span>Back to Projects</span>
-          </motion.button>
+      <section className="relative overflow-hidden pt-32 md:pt-40">
+        <div aria-hidden className="grid-bg absolute inset-0 -z-10" />
+        <div aria-hidden className="absolute left-1/2 top-0 -z-10 h-80 w-[44rem] -translate-x-1/2 rounded-full bg-accent/20 blur-[120px]" />
 
-          {/* Hero Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="flex flex-col gap-8 mb-12"
-          >
-            {/* Project Title Card */}
-            <div className="relative">
-              <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl blur opacity-30"></div>
-              <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 md:p-12">
-                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-                  <div className="flex-1">
-                    <motion.h1
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.2, duration: 0.6 }}
-                      className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4"
-                    >
-                      {project.name}
-                    </motion.h1>
-                    <motion.p
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3, duration: 0.6 }}
-                      className="text-lg md:text-xl text-neutral-300 max-w-2xl"
-                    >
-                      {project.intro}
-                    </motion.p>
-                  </div>
+        <div className="container-page">
+          <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}>
+            <Link to="/projects" className="group inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-fg">
+              <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+              All projects
+            </Link>
+          </motion.div>
 
-                  {/* Tech Stack Tags */}
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.4, duration: 0.5 }}
-                    className="flex flex-wrap gap-2"
-                  >
-                    {techStack.map((tech, index) => (
-                      <span
-                        key={index}
-                        className="px-3 py-1.5 bg-purple-600/20 border border-purple-500/30 text-purple-300 text-sm rounded-full"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </motion.div>
-                </div>
-              </div>
+          <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+            <div>
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="font-mono text-sm text-accent-strong"
+              >
+                {String(project.id).padStart(2, '0')} — {project.title}
+              </motion.p>
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.08, duration: 0.6, ease }}
+                className="mt-3 text-5xl font-bold md:text-7xl"
+              >
+                {project.name}
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.16, duration: 0.6 }}
+                className="mt-5 max-w-2xl text-lg text-muted md:text-xl"
+              >
+                {project.intro}
+              </motion.p>
             </div>
 
-            {/* Primary Image with Overlay */}
-            <div className="relative group cursor-pointer" onClick={() => window.open(project.link, '_blank')}>
-              <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 via-pink-500 to-blue-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition-opacity duration-500"></div>
-              <div className="relative rounded-2xl overflow-hidden">
-                <motion.img
-                  initial={{ scale: 1.1, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.8 }}
-                  src={project.primaryImage}
-                  alt={project.title}
-                  className="w-full h-[450px] md:h-[600px] lg:h-[700px] object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500">
-                  <div className="absolute bottom-0 left-0 right-0 p-8 flex items-center justify-center gap-3">
-                    <ExternalLink className="w-6 h-6 text-white" />
-                    <span className="text-white text-lg font-medium">Live Preview</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* CTA Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.6 }}
-              className="flex flex-wrap gap-4"
+              transition={{ delay: 0.24 }}
+              className="flex flex-wrap gap-3"
             >
-              <button
-                onClick={() => window.open(project.link, '_blank')}
-                className="flex items-center gap-2 cursor-pointer px-6 py-3 bg-[#4B22B5] hover:bg-[#5a2fca] text-white rounded-xl font-medium transition-all hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25"
-              >
-                <ExternalLink className="w-5 h-5" />
-                Visit Website
-              </button>
-              <button className="flex items-center gap-2 cursor-pointer px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-xl font-medium transition-all hover:scale-105">
-                <Code2 className="w-5 h-5" />
-                View Code
+              <a href={project.link} target="_blank" rel="noreferrer" className="btn btn-primary group">
+                Visit live site
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </a>
+              <button onClick={() => copy(window.location.href, 'Link copied')} className="btn btn-ghost">
+                <Link2 className="h-4 w-4" /> Share
               </button>
             </motion.div>
-          </motion.div>
+          </div>
 
-          {/* Description Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mb-12"
+          <motion.button
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.8, ease }}
+            onClick={() => openAt(project.primaryImage)}
+            className="group relative mt-12 block w-full overflow-hidden rounded-[2rem] border border-line bg-surface p-2 md:p-3"
+            aria-label="Open screenshot viewer"
           >
-            <div className="relative">
-              <div className="absolute -inset-1 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-2xl blur"></div>
-              <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 md:p-8">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-2 bg-[#4B22B5]/20 rounded-lg">
-                    <Layers className="w-5 h-5 text-purple-400" />
-                  </div>
-                  <h2 className="text-2xl font-semibold text-white">About This Project</h2>
-                </div>
-                <p className="text-neutral-300 leading-relaxed text-base md:text-lg">
-                  {project.description}
-                </p>
-              </div>
+            <div className="overflow-hidden rounded-[1.5rem]">
+              <img
+                src={project.primaryImage}
+                alt={`${project.name} main screenshot`}
+                className="aspect-[16/9] w-full object-cover object-left-top transition-transform duration-700 group-hover:scale-[1.02]"
+              />
             </div>
-          </motion.div>
-
-          {/* Gallery Section */}
-          {project.additionalImages.length > 0 && (
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="mb-12"
-            >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 bg-[#4B22B5]/20 rounded-lg">
-                  <Zap className="w-5 h-5 text-purple-400" />
-                </div>
-                <h2 className="text-2xl font-semibold text-white">Project Gallery</h2>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {project.additionalImages.map((image, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1, duration: 0.5 }}
-                    className="group relative cursor-pointer"
-                    onClick={() => {
-                      setCurrentImageIndex(index);
-                      setIsCarouselOpen(true);
-                    }}
-                  >
-                    <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div className="relative rounded-xl overflow-hidden border border-white/10">
-                      <img
-                        src={image}
-                        alt={`${project.title} additional ${index + 1}`}
-                        className="w-full h-[200px] object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <span className="text-white font-medium">View Image</span>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          )}
-
-          {/* Project Summary Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mb-12"
-          >
-            <div className="relative">
-              <div className="absolute -inset-1 bg-gradient-to-r from-green-600/20 to-blue-600/20 rounded-2xl blur"></div>
-              <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 md:p-8">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-2 bg-green-600/20 rounded-lg">
-                    <SquarePen className="w-5 h-5 text-green-400" />
-                  </div>
-                  <h2 className="text-2xl font-semibold text-white">Project Summary</h2>
-                </div>
-                <p className="text-neutral-300 leading-relaxed text-base md:text-lg">
-                  {project.summary}
-                </p>
-              </div>
-            </div>
-          </motion.div>
+            <span className="absolute bottom-6 right-6 flex items-center gap-2 rounded-full bg-black/70 px-4 py-2 text-sm text-white opacity-0 backdrop-blur transition-opacity group-hover:opacity-100">
+              <Expand className="h-4 w-4" /> Expand
+            </span>
+          </motion.button>
         </div>
-        <Footer />
+      </section>
 
-        {/* Carousel Modal */}
-        <AnimatePresence>
-          {isCarouselOpen && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md"
-              onClick={() => setIsCarouselOpen(false)}
-            >
-              {/* Close Button */}
-              <motion.button
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                exit={{ scale: 0 }}
-                transition={{ delay: 0.2 }}
-                className="absolute top-4 right-4 text-white hover:text-purple-400 z-50 p-2 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
-                onClick={() => setIsCarouselOpen(false)}
-              >
-                <X size={32} />
-              </motion.button>
+      <section className="container-page grid gap-12 py-20 lg:grid-cols-[1fr_320px] lg:gap-16">
+        <div className="space-y-14">
+          <Reveal>
+            <h2 className="text-3xl font-semibold">Overview</h2>
+            <p className="mt-4 text-lg leading-relaxed text-muted">{project.description}</p>
+          </Reveal>
+          <Reveal>
+            <h2 className="text-3xl font-semibold">The outcome</h2>
+            <p className="mt-4 text-lg leading-relaxed text-muted">{project.summary}</p>
+          </Reveal>
+        </div>
 
-              {/* Previous Button */}
-              <motion.button
-                initial={{ x: -50, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                exit={{ x: -50, opacity: 0 }}
-                transition={{ delay: 0.1 }}
-                className="absolute left-4 text-white hover:text-purple-400 z-50 p-3 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setCurrentImageIndex((prev) =>
-                    prev === 0 ? project.additionalImages.length - 1 : prev - 1
-                  );
-                }}
-              >
-                <ChevronLeft size={48} />
-              </motion.button>
-
-              {/* Image Container */}
-              <motion.div
-                key={currentImageIndex}
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.8, opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="max-w-[85vw] max-h-[80vh] flex items-center justify-center px-16"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <img
-                  src={project.additionalImages[currentImageIndex]}
-                  alt={`${project.title} ${currentImageIndex + 1}`}
-                  className="max-w-full max-h-[80vh] object-contain rounded-xl shadow-2xl"
-                />
-              </motion.div>
-
-              {/* Next Button */}
-              <motion.button
-                initial={{ x: 50, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                exit={{ x: 50, opacity: 0 }}
-                transition={{ delay: 0.1 }}
-                className="absolute right-4 text-white hover:text-purple-400 z-50 p-3 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setCurrentImageIndex((prev) =>
-                    prev === project.additionalImages.length - 1 ? 0 : prev + 1
-                  );
-                }}
-              >
-                <ChevronRight size={48} />
-              </motion.button>
-
-              {/* Image Counter */}
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: 20, opacity: 0 }}
-                className="absolute bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full text-white text-sm flex items-center gap-2"
-              >
-                <span className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></span>
-                {currentImageIndex + 1} / {project.additionalImages.length}
-              </motion.div>
-
-              {/* Thumbnail Strip */}
-              <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-2 max-w-[90vw] overflow-x-auto scrollbar-hide pb-2">
-                {project.additionalImages.map((image, index) => (
-                  <button
-                    key={index}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setCurrentImageIndex(index);
-                    }}
-                    className={`cursor-pointer flex-shrink-0 w-16 h-12 rounded-lg overflow-hidden border-2 transition-all ${index === currentImageIndex
-                      ? 'border-purple-500 scale-110'
-                      : 'border-transparent opacity-50 hover:opacity-80'
-                      }`}
-                  >
-                    <img
-                      src={image}
-                      alt={`Thumbnail ${index + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </button>
+        <aside className="lg:sticky lg:top-28 lg:self-start">
+          <Reveal className="card divide-y divide-line">
+            <div className="p-6">
+              <p className="text-xs uppercase tracking-wider text-subtle">Category</p>
+              <p className="mt-1 font-medium">{project.title}</p>
+            </div>
+            <div className="p-6">
+              <p className="text-xs uppercase tracking-wider text-subtle">Tech stack</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {project.tech.map((t) => (
+                  <span key={t} className="chip">{t}</span>
                 ))}
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+            </div>
+            <div className="p-6">
+              <p className="text-xs uppercase tracking-wider text-subtle">Live site</p>
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-1 flex items-center gap-1 break-all font-medium text-accent-strong hover:underline"
+              >
+                {project.link.replace(/^https?:\/\//, '').replace(/\/$/, '')}
+                <ArrowUpRight className="h-4 w-4 shrink-0" />
+              </a>
+            </div>
+          </Reveal>
+        </aside>
+      </section>
+
+      {gallery.length > 1 && (
+        <section className="container-page pb-20">
+          <Reveal className="mb-8 flex items-end justify-between">
+            <h2 className="text-3xl font-semibold">Gallery</h2>
+            <p className="font-mono text-sm text-subtle">{gallery.length} screens</p>
+          </Reveal>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {gallery.map((src, i) => (
+              <Reveal key={src} delay={(i % 3) * 0.06}>
+                <button
+                  onClick={() => setLightbox(i)}
+                  className="group relative block w-full overflow-hidden rounded-2xl border border-line bg-surface"
+                  aria-label={`Open screenshot ${i + 1}`}
+                >
+                  <img
+                    src={src}
+                    alt={`${project.name} screenshot ${i + 1}`}
+                    loading="lazy"
+                    className="aspect-[4/3] w-full object-cover object-left-top transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <span className="absolute inset-0 grid place-items-center bg-black/40 opacity-0 transition-opacity group-hover:opacity-100">
+                    <Expand className="h-6 w-6 text-white" />
+                  </span>
+                </button>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {projects.length > 1 && (
+        <nav aria-label="More projects" className="container-page grid gap-4 pb-12 md:grid-cols-2">
+          {[
+            { p: prev, label: 'Previous project', Icon: ArrowLeft, align: 'text-left' },
+            { p: next, label: 'Next project', Icon: ArrowRight, align: 'md:text-right' },
+          ].map(({ p, label, Icon, align }) => (
+            <Link
+              key={label}
+              to={`/project-details/${p.id}`}
+              className={`card group flex flex-col gap-2 p-6 transition-colors hover:border-accent/50 md:p-8 ${align}`}
+            >
+              <span className={`flex items-center gap-2 text-sm text-subtle ${align === 'text-left' ? '' : 'md:justify-end'}`}>
+                {label === 'Previous project' && <Icon className="h-4 w-4 transition-transform group-hover:-translate-x-1" />}
+                {label}
+                {label === 'Next project' && <Icon className="h-4 w-4 transition-transform group-hover:translate-x-1" />}
+              </span>
+              <span className="font-display text-2xl font-semibold md:text-3xl">{p.name}</span>
+            </Link>
+          ))}
+        </nav>
+      )}
+
+      <ContactCTA />
+
+      <Lightbox
+        images={gallery}
+        index={lightbox}
+        onIndexChange={setLightbox}
+        onClose={() => setLightbox(null)}
+        alt={project.name}
+      />
     </>
   );
 };

@@ -1,229 +1,191 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Home, User, Briefcase, Mail } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-motion';
+import { ArrowUpRight, Command, Menu, X } from 'lucide-react';
 import logo from '../assets/logo/logo-2.png';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import AnimatedButton from './AnimatedButton';
+import { navItems, profile, socials } from '../data/site';
+import { isMac, openCommandPalette } from '../lib/commandPalette';
+import ThemeToggle from './ThemeToggle';
 
 const NavBar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(() => {
-    // Check initial scroll position on mount
-    if (typeof window !== 'undefined') {
-      return window.scrollY > 50;
-    }
-    return true;
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const { scrollY } = useScroll();
+  const { pathname } = useLocation();
+
+  // Hide on scroll down, reveal on scroll up.
+  useMotionValueEvent(scrollY, 'change', (y) => {
+    const prev = scrollY.getPrevious() ?? 0;
+    setScrolled(y > 24);
+    setHidden(y > 300 && y > prev);
   });
-  const location = useLocation();
-  const menuRef = useRef(null);
-  const buttonRef = useRef(null);
 
-  const navigate = useNavigate();
-
-  // Handle scroll effect
-  useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 50;
-      setScrolled(isScrolled);
-    };
-    
-    // Add event listener
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    // Check initial position
-    handleScroll();
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+  useEffect(() => setOpen(false), [pathname]);
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        menuRef.current &&
-        !menuRef.current.contains(event.target) &&
-        buttonRef.current &&
-        !buttonRef.current.contains(event.target)
-      ) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
+    document.body.style.overflow = open ? 'hidden' : '';
+    const onKey = (e) => e.key === 'Escape' && setOpen(false);
+    window.addEventListener('keydown', onKey);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKey);
     };
-  }, []);
-
-  const navItems = [
-    { to: '/', label: 'Home', icon: Home },
-    { to: '/about', label: 'About', icon: User },
-    { to: '/projects', label: 'My Projects', icon: Briefcase },
-  ];
+  }, [open]);
 
   return (
-    <motion.div
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
-      className={`w-full sticky top-0 left-0 z-50 transition-all duration-500 bg-neutral-900/95 backdrop-blur-2xl  ${
-        scrolled
-          ? 'shadow-lg shadow-purple-500/10'
-          : 'bg-transparent'
-      }`}
-    >
-      {/* Gradient border line at bottom */}
-      <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent" />
+    <>
+      <motion.header
+        animate={{ y: hidden && !open ? '-120%' : 0 }}
+        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+        className="fixed inset-x-0 top-0 z-50 px-3 pt-3 md:px-6 md:pt-4"
+      >
+        <nav
+          aria-label="Main"
+          className={`mx-auto flex h-16 max-w-6xl items-center justify-between rounded-full border pl-3 pr-2 transition-all duration-500 ${
+            scrolled || open
+              ? 'border-line bg-surface/80 shadow-lg shadow-black/10 backdrop-blur-xl'
+              : 'border-transparent bg-transparent'
+          }`}
+        >
+          <Link to="/" className="group flex items-center gap-2.5" aria-label={`${profile.name} — home`}>
+            <img
+              src={logo}
+              alt=""
+              className="h-9 w-9 transition-transform duration-500 group-hover:rotate-[20deg]"
+            />
+            <span className="font-display text-lg font-bold tracking-tight">
+              {profile.shortName}
+              <span className="text-accent">.</span>
+            </span>
+          </Link>
 
-      <div className="relative">
-        <div className="max-w-[1650px] mx-auto px-5 md:px-20 xl:px-5">
-          <div className="flex items-center justify-between h-20">
-            {/* Logo with gradient glow */}
-            <motion.div
-              className="flex items-center gap-3 relative"
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: 'spring', stiffness: 300 }}
-            >
-              {/* Gradient glow effect */}
-              <div className="absolute -inset-2 bg-gradient-to-r from-purple-600 via-pink-500 to-purple-600 rounded-full blur-lg opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
-              <div className="relative">
-                <img
-                  src={logo}
-                  alt="Logo"
-                  className="w-10 h-10 md:w-16 md:h-16 rounded-full border-2 border-purple-500/30"
-                />
-              </div>
-              <p className="font-bold text-2xl md:text-3xl bg-gradient-to-r from-purple-500 to-pink-400 bg-clip-text text-transparent">
-                <span className="text-purple-500">AY</span>O
-              </p>
-            </motion.div>
-
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-6">
-              {navItems.map((item) => (
-                  <Link
-                    to={item.to}
-                    className={`group relative px-5 py-2.5 rounded-xl font-medium text-lg transition-all duration-300 ${
-                      location.pathname === item.to
-                        ? 'text-white'
-                        : 'text-gray-300 hover:text-white'
-                    }`}
-                  >
-                    {/* Background gradient on hover/active */}
-                    <div className={`absolute inset-0 rounded-xl transition-all duration-300 ${
-                      location.pathname === item.to
-                        ? 'bg-gradient-to-r from-purple-600/30 to-pink-600/30 border border-purple-500/30'
-                        : 'bg-transparent group-hover:bg-white/10 group-hover:border group-hover:border-white/20'
-                    }`} />
-                    <span className="relative z-10 flex items-center gap-2">
-                      <item.icon size={18} className={location.pathname === item.to ? 'text-purple-400' : ''} />
-                      {item.label}
-                    </span>
-                    {/* Active indicator dot */}
-                    {/* {location.pathname === item.to && (
-                      <motion.div
-                        layoutId="activeIndicator"
-                        className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-purple-500 rounded-full"
-                      />
-                    )} */}
-                  </Link>
-              ))}
-              <motion.button
-                onClick={navigate.bind(null, '/contact')}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <AnimatedButton text="Get in Touch" onClick={navigate.bind(null, '/contact')} />
-              </motion.button>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <div className="lg:hidden relative">
-              <motion.button
-                ref={buttonRef}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => setIsOpen(true)}
-                className={`p-3 rounded-xl bg-gradient-to-r from-purple-600/20 to-pink-600/20 hover:from-purple-600/30 hover:to-pink-600/30 border border-white/10 transition-all duration-300 ${isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
-              >
-                <Menu size={24} className='text-white' />
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => setIsOpen(false)}
-                className={`absolute inset-0 p-3 rounded-xl bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-white/10 transition-all duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-              >
-                <X size={24} className='text-white' />
-              </motion.button>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              ref={menuRef}
-              initial={{ x: '-100%', opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: '-100%', opacity: 0 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="lg:hidden fixed top-20 left-0 w-full h-screen"
-            >
-              {/* Gradient background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 via-purple-950/50 to-neutral-900 backdrop-blur-2xl" />
-              
-              {/* Decorative orbs */}
-              <div className="absolute top-20 left-0 w-64 h-64 bg-purple-600/20 rounded-full blur-3xl" />
-              <div className="absolute bottom-20 right-0 w-64 h-64 bg-pink-600/20 rounded-full blur-3xl" />
-
-              <div className="relative flex flex-col items-center pt-40 h-full space-y-6">
-                {navItems.map((item, index) => (
-                  <motion.div
-                    key={item.to}
-                    initial={{ x: -50, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ delay: index * 0.1, duration: 0.5 }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Link
-                      to={item.to}
-                      onClick={() => setIsOpen(false)}
-                      className={`flex items-center gap-4 px-8 py-4 rounded-2xl font-medium text-xl transition-all duration-300 ${
-                        location.pathname === item.to
-                          ? 'text-white bg-gradient-to-r from-purple-600/40 to-pink-600/40 border border-purple-500/30 shadow-lg shadow-purple-500/20'
-                          : 'text-gray-300 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10'
-                      }`}
-                    >
-                      <item.icon size={24} className={location.pathname === item.to ? 'text-purple-400' : ''} />
-                      {item.label}
-                    </Link>
-                  </motion.div>
-                ))}
-                <motion.div
-                  initial={{ x: -50, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: navItems.length * 0.1, duration: 0.5 }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+          <ul className="hidden items-center gap-1 rounded-full border border-line bg-bg/40 p-1 lg:flex">
+            {navItems.map((item) => (
+              <li key={item.to}>
+                <NavLink
+                  to={item.to}
+                  end={item.to === '/'}
+                  className={({ isActive }) =>
+                    `relative block rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                      isActive ? 'text-accent-fg' : 'text-muted hover:text-fg'
+                    }`
+                  }
                 >
-                  <Link
-                    to={'/contact'}
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-4 px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl font-medium text-xl hover:from-purple-500 hover:to-pink-500 transition-all duration-300 shadow-lg hover:shadow-purple-500/25 border border-white/10"
+                  {({ isActive }) => (
+                    <>
+                      {isActive && (
+                        <motion.span
+                          layoutId="nav-pill"
+                          className="absolute inset-0 rounded-full bg-accent"
+                          transition={{ type: 'spring', stiffness: 400, damping: 32 }}
+                        />
+                      )}
+                      <span className="relative">{item.label}</span>
+                    </>
+                  )}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+
+          <div className="flex items-center gap-1.5">
+            <button
+              onClick={openCommandPalette}
+              className="hidden items-center gap-2 rounded-full border border-line px-3 py-2 text-xs text-muted transition-colors hover:border-accent/50 hover:text-fg md:flex"
+              aria-label="Open command palette"
+            >
+              <Command className="h-3.5 w-3.5" />
+              <kbd className="font-mono">{isMac ? '⌘' : 'Ctrl'} K</kbd>
+            </button>
+            <ThemeToggle />
+            <Link to="/contact" className="btn btn-primary hidden px-5 py-2.5 sm:inline-flex">
+              Hire me
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
+            <button
+              onClick={() => setOpen((v) => !v)}
+              aria-label={open ? 'Close menu' : 'Open menu'}
+              aria-expanded={open}
+              className="grid h-10 w-10 place-items-center rounded-full border border-line bg-surface lg:hidden"
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                  key={open ? 'x' : 'menu'}
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                >
+                  {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                </motion.span>
+              </AnimatePresence>
+            </button>
+          </div>
+        </nav>
+      </motion.header>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-40 bg-bg/95 backdrop-blur-xl lg:hidden"
+          >
+            <div className="flex h-full flex-col justify-between px-6 pb-10 pt-28">
+              <ul className="flex flex-col gap-1">
+                {navItems.map((item, i) => (
+                  <motion.li
+                    key={item.to}
+                    initial={{ opacity: 0, x: -24 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.05 + i * 0.05 }}
                   >
-                    <Mail size={24} />
-                    Contact
-                  </Link>
-                </motion.div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </motion.div>
+                    <NavLink
+                      to={item.to}
+                      end={item.to === '/'}
+                      className={({ isActive }) =>
+                        `flex items-baseline gap-4 py-2 font-display text-4xl font-semibold ${
+                          isActive ? 'text-fg' : 'text-subtle'
+                        }`
+                      }
+                    >
+                      <span className="font-mono text-sm text-accent">0{i + 1}</span>
+                      {item.label}
+                    </NavLink>
+                  </motion.li>
+                ))}
+              </ul>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35 }}
+                className="flex flex-col gap-4"
+              >
+                <a href={`mailto:${profile.email}`} className="text-muted">
+                  {profile.email}
+                </a>
+                <div className="flex gap-2">
+                  {socials.map(({ icon: Icon, href, label }) => (
+                    <a
+                      key={label}
+                      href={href}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={label}
+                      className="grid h-11 w-11 place-items-center rounded-full border border-line text-muted"
+                    >
+                      <Icon />
+                    </a>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
