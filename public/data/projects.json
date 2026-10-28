@@ -1,26 +1,71 @@
 [
   {
+    "name": "DrawMart",
+    "title": "e-marketplace",
+    "intro": "DrawMart is a modern e-marketplace platform designed to connect buyers and sellers in a seamless shopping experience.",
+    "primaryImage": "/assets/project_img/DrawMart/explore.png",
+    "additionalImages": [
+      "/assets/project_img/DrawMart/explore2.png",
+      "/assets/project_img/DrawMart/product.png",
+      "/assets/project_img/DrawMart/wallet.png",
+      "/assets/project_img/DrawMart/results.png",
+      "/assets/project_img/DrawMart/store-dashboard.png",
+      "/assets/project_img/DrawMart/storeNewlisting.png",
+      "/assets/project_img/DrawMart/admin-review.png"
+    ],
+    "description": "DrawMart is a full-stack e-marketplace solution built with React, TypeScript, and Firebase. The platform allows users to browse and purchase products, manage their shopping cart, and complete secure transactions. It features a modern UI with responsive design, dark/light mode support, and smooth animations. DrawMart ensures secure authentication via Firebase Auth, with user-specific data stored in Firestore for scalability and security.",
+    "summary": "DrawMart simplifies online shopping by providing an intuitive interface that offers instant insights into product availability, pricing, and inventory. Users can easily search for items, view detailed descriptions, and make purchases with confidence. The system intelligently updates product information using live data from the backend, while every transaction is logged for transparency and accurate reporting. DrawMart also features role-based access control, responsive mobile design, and a dark/light mode toggle for enhanced usability. Designed for both retail users and e-commerce businesses, DrawMart demonstrates the perfect balance of functionality, security, and visual polish — a complete solution for modern online retail.",
+    "link": "https://drawmart.vercel.app/"
+  },
+  {
     "name": "Vaultly",
     "title": "Crypto Portfolio Tracker",
     "intro": "Vaultly is a next-generation crypto portfolio tracking application designed for individuals and fintech businesses to monitor digital assets in real-time.",
-    "primaryImage": "/assets/project_img/vaultly/vaultly-dashboard.png",
+    "primaryImage": "/assets/project_img/vaultly/landing-page.png",
     "additionalImages": [
-      "/assets/project_img/vaultly/vaultly-add-asset.png",
-      "/assets/project_img/vaultly/vaultly-portfolio.png",
-      "/assets/project_img/vaultly/vaultly-transactions.png"
+      "/assets/project_img/vaultly/dashboard.png",
+      "/assets/project_img/vaultly/portfolio.png",
+      "/assets/project_img/vaultly/markets.png",
+      "/assets/project_img/vaultly/transactions.png",
+      "/assets/project_img/vaultly/buy.png",
+      "/assets/project_img/vaultly/profile.png",
+      "/assets/project_img/vaultly/settings.png"
     ],
     "description": "Vaultly is a full-stack crypto portfolio tracker built with React, TypeScript, Firebase, and CoinGecko API. The platform allows users to manage and monitor their crypto investments with real-time price updates, transaction logs, and performance analytics. It features Paystack API integration for secure deposits and withdrawals, ensuring seamless fund management directly from the app. The UI is designed using ShadCN UI with modern aesthetics like glassmorphism, dark/light mode support, and smooth Framer Motion transitions. Vaultly ensures secure authentication via Firebase Auth, with user-specific data stored in Firestore for scalability and security.",
     "summary": "Vaultly simplifies digital asset management by offering an intuitive dashboard that provides instant insights into a user's crypto portfolio. Users can add assets, view real-time market data, and analyze profit or loss based on historical transactions. The system intelligently updates portfolio values using live data from CoinGecko, while every transaction is logged for transparency and accurate reporting. Vaultly also features role-based access control, responsive mobile design, and a dark/light mode toggle for enhanced usability. Designed for both retail users and fintech startups, Vaultly demonstrates the perfect balance of functionality, security, and visual polish — a complete solution for modern crypto portfolio management.",
     "link": "https://vaultly-neon.vercel.app/"
   },
   {
+    "name": "Findrr",
+    "title": "Job Search Platform",
+    "intro": "Findrr is a modern job search platform that connects job seekers with employers.",
+    "primaryImage": "/assets/project_img/findrr/landing.png",
+    "additionalImages": [
+      "/assets/project_img/findrr/landing.png",
+      "/assets/project_img/findrr/dashboard1.png",
+      "/assets/project_img/findrr/messages1.png",
+      "/assets/project_img/findrr/post-job.png",
+      "/assets/project_img/findrr/profile1.png",
+      "/assets/project_img/findrr/dashboard2.png",
+      "/assets/project_img/findrr/jobDetails1.png",
+      "/assets/project_img/findrr/jobDetails2.png",
+      "/assets/project_img/findrr/saved.png",
+      "/assets/project_img/findrr/messages2.png",
+      "/assets/project_img/findrr/profile2.png"
+    ],
+    "description": "Findrr is a modern job search platform that connects job seekers with employers. The platform helps users explore and analyze job opportunities through interactive filters and search capabilities, providing insights into salary ranges, company cultures, and career growth potential. The UI is built with ShadCN UI and delivers modern glassmorphism styling with smooth Framer Motion transitions. Findrr secures user access using Firebase Authentication and stores user-specific job search data in Firestore for scalability and reliability.",
+    "summary": "Findrr simplifies the job search process by giving users clear visibility into available opportunities and company information. Users can create custom alerts, monitor applications in real-time, and review performance metrics designed around career outcomes instead of market price swings. Every application is recorded for transparency, enabling accurate reporting and audit-friendly histories. The platform supports role-based access control, responsive design, and a polished dark/light experience for usability across devices. Designed for both job seekers and employers, Findrr demonstrates a complete, secure, and user-friendly solution for modern job searching.",
+    "link": "https://findrr-job.vercel.app/"
+  },
+  {
     "name": "Palmvest",
     "title": "Agro-Investment Platform",
     "intro": "Palmvest is a next-generation agro-investment platform designed for individuals and fintech businesses to monitor agricultural assets in real-time.",
-    "primaryImage": "/assets/project_img/palmvest/palmvest-dashboard.png",
+    "primaryImage": "/assets/project_img/palmvest/home.png",
     "additionalImages": [
-      "/assets/project_img/palmvest/palmvest-buy-land.png",
-      "/assets/project_img/palmvest/palmvest-dashboard.png"
+      "/assets/project_img/palmvest/portfolio.png",
+      "/assets/project_img/palmvest/invest.png",
+      "/assets/project_img/palmvest/about.png"
     ],
     "description": "Palmvest is a full-stack agro-investment platform built with React, TypeScript, Firebase, and Flutterwave payment gateway for funding agricultural projects. The platform helps users discover investable opportunities such as farmland and crop/production projects, fund their positions, and track investment progress over time. Investors get a real-time dashboard experience that includes holdings, investment/asset details, transaction history, and milestone-based performance reporting tied to agronomic outcomes (e.g., planting, growth stages, harvest, and yield estimates). The UI is built with ShadCN UI and delivers modern glassmorphism styling with smooth Framer Motion transitions. Palmvest secures user access using Firebase Authentication and stores user-specific investment data in Firestore for scalability and reliability.",
     "summary": "Palmvest simplifies agricultural investing by giving investors clear visibility into their agro holdings and expected returns linked to project milestones. Users can fund investments, monitor project status, and review performance reports designed around agronomic progress instead of market price swings. Every funding and investment action is recorded for transparency, enabling accurate reporting and audit-friendly histories. The platform supports role-based access control, responsive design, and a polished dark/light experience for usability across devices. Designed for both retail investors and fintech operators, Palmvest demonstrates a complete, secure, and user-friendly solution for modern agro asset investment management.",
@@ -36,22 +81,6 @@
     ],
     "description": "Transaction Visualizer is a full-stack transaction visualization platform built with React, TypeScript, and Firebase. The platform helps users explore and analyze transactional data through interactive charts and graphs, providing insights into spending patterns, revenue streams, and financial trends. The UI is built with ShadCN UI and delivers modern glassmorphism styling with smooth Framer Motion transitions. Transaction Visualizer secures user access using Firebase Authentication and stores user-specific transaction data in Firestore for scalability and reliability.",
     "summary": "Transaction Visualizer simplifies transactional data analysis by giving users clear visibility into their financial activities and trends. Users can create custom reports, monitor transactions in real-time, and review performance metrics designed around financial outcomes instead of market price swings. Every transaction is recorded for transparency, enabling accurate reporting and audit-friendly histories. The platform supports role-based access control, responsive design, and a polished dark/light experience for usability across devices. Designed for both retail users and fintech operators, Transaction Visualizer demonstrates a complete, secure, and user-friendly solution for modern financial data visualization.",
-    "link": "https://trasnaction-visualizer.vercel.app/"
-  },
-  {
-    "name": "Findrr",
-    "title": "Job Search Platform",
-    "intro": "Findrr is a modern job search platform that connects job seekers with employers.",
-    "primaryImage": "/assets/project_img/findrr/landing.png",
-    "additionalImages": [
-      "/assets/project_img/findrr/landing.png",
-      "/assets/project_img/findrr/onboarding.png",
-      "/assets/project_img/findrr/applicant-signup.png",
-      "/assets/project_img/findrr/employer-signup.png",
-      "/assets/project_img/findrr/signin.png"
-    ],
-    "description": "Findrr is a modern job search platform that connects job seekers with employers. The platform helps users explore and analyze job opportunities through interactive filters and search capabilities, providing insights into salary ranges, company cultures, and career growth potential. The UI is built with ShadCN UI and delivers modern glassmorphism styling with smooth Framer Motion transitions. Findrr secures user access using Firebase Authentication and stores user-specific job search data in Firestore for scalability and reliability.",
-    "summary": "Findrr simplifies the job search process by giving users clear visibility into available opportunities and company information. Users can create custom alerts, monitor applications in real-time, and review performance metrics designed around career outcomes instead of market price swings. Every application is recorded for transparency, enabling accurate reporting and audit-friendly histories. The platform supports role-based access control, responsive design, and a polished dark/light experience for usability across devices. Designed for both job seekers and employers, Findrr demonstrates a complete, secure, and user-friendly solution for modern job searching.",
-    "link": "https://findrr-rho.vercel.app/"
+    "link": "https://transaction-visualizer.vercel.app/"
   }
 ]

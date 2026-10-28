@@ -120,7 +120,7 @@ const ProjectDetails = () => {
               <img
                 src={project.primaryImage}
                 alt={`${project.name} main screenshot`}
-                className="aspect-[16/9] w-full object-cover object-left-top transition-transform duration-700 group-hover:scale-[1.02]"
+                className="aspect-[16/9] w-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
               />
             </div>
             <span className="absolute bottom-6 right-6 flex items-center gap-2 rounded-full bg-black/70 px-4 py-2 text-sm text-white opacity-0 backdrop-blur transition-opacity group-hover:opacity-100">
@@ -190,7 +190,7 @@ const ProjectDetails = () => {
                     src={src}
                     alt={`${project.name} screenshot ${i + 1}`}
                     loading="lazy"
-                    className="aspect-[4/3] w-full object-cover object-left-top transition-transform duration-500 group-hover:scale-105"
+                    className="aspect-[4/3] w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                   />
                   <span className="absolute inset-0 grid place-items-center bg-black/40 opacity-0 transition-opacity group-hover:opacity-100">
                     <Expand className="h-6 w-6 text-white" />
